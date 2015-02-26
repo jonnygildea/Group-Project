@@ -1,4 +1,4 @@
-package com;
+package com.Vitalij;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

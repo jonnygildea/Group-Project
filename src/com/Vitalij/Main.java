@@ -1,4 +1,4 @@
-package com;
+package com.Vitalij;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
