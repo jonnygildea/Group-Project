@@ -1,4 +1,4 @@
-package com.Vitalij;
+package com;
 
 class Location {
 	private int X;

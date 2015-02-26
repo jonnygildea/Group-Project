@@ -1,4 +1,4 @@
-package com.Vitalij;
+package com;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

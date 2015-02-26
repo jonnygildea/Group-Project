@@ -1,4 +1,4 @@
-package com.Vitalij;
+package com;
 
 class Player {
 	int health = 100;
