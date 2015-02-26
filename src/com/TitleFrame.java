@@ -17,8 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JScrollBar;
 import javax.swing.JLabel;
 
-class TitleFrame extends JFrame implements ActionListener
-{
+class TitleFrame extends JFrame implements ActionListener {
 	final JTextField textField;
 	final JTextField textField_1;
 	JButton btnNewGame = new JButton("New Game");
@@ -28,8 +27,7 @@ class TitleFrame extends JFrame implements ActionListener
 	JButton btnRules = new JButton("Rules");
 	JScrollPane scrollPane = new JScrollPane(textArea);
 	
-	public TitleFrame() 
-	{
+	public TitleFrame() {
 		super();
 		setTitle("THE GAME");
 		getContentPane().setLayout(null);
@@ -55,7 +53,7 @@ class TitleFrame extends JFrame implements ActionListener
 		textField = new JTextField();
 		textField.setBounds(46, 69, 86, 20);
 		getContentPane().add(textField);
-		textField.setColumns(10);	
+		textField.setColumns(10);
 		textField.setText("5");
 		
 		textField_1 = new JTextField();
@@ -63,7 +61,6 @@ class TitleFrame extends JFrame implements ActionListener
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		textField_1.setText("5");
-		
 		
 		btnRules.setBounds(151, 11, 89, 23);
 		getContentPane().add(btnRules);
@@ -77,49 +74,30 @@ class TitleFrame extends JFrame implements ActionListener
 		label_1.setBounds(66, 142, 46, 14);
 		getContentPane().add(label_1);
 	}
+	
 	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-		if(btnNewGame == e.getSource())
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (btnNewGame == e.getSource()) {
 			validator();
 		}
 		
-		if(btnRules == e.getSource())
-		{
-			textArea.setText("The rules are as follows:\n"
-					+ "\n 1. Two opponents are moving across the field "
-					+ "\n one tile at a time, each of them gets "
-					+ "\n 100 Health and 100 Stamina at the start.\n"
-					+ "\n 2. Each move costs 5 Stamina, if the player"
-					+ "\n stays in the same tile, he regenerates 10"
-					+ "\n Stamina.\n"
-					+ "\n 3. When opponents are adjacent, they "
-					+ "\n can attack each other. Attack costs 10 "
-					+ "\n Stamina points for attacker and inflicts 30"
-					+ "\n health damage on the attacked. As long as "
-					+ "\n stamina is above 0, attack is possible\n"
-					+ "\n 4. When Health of one of opponents gets to 0, "
-					+ "\n game ends");
+		if (btnRules == e.getSource()) {
+			textArea.setText("The rules are as follows:\n" + "\n 1. Two opponents are moving across the field " + "\n one tile at a time, each of them gets " + "\n 100 Health and 100 Stamina at the start.\n" + "\n 2. Each move costs 5 Stamina, if the player" + "\n stays in the same tile, he regenerates 10" + "\n Stamina.\n" + "\n 3. When opponents are adjacent, they " + "\n can attack each other. Attack costs 10 " + "\n Stamina points for attacker and inflicts 30" + "\n health damage on the attacked. As long as " + "\n stamina is above 0, attack is possible\n" + "\n 4. When Health of one of opponents gets to 0, " + "\n game ends");
 		}
 	}
 	
-	public void validator()
-	{
+	public void validator() {
 		//int xRow=0;
 		//int yRow=0;
 		
-		try
-		{						
+		try {
 			String text = textField.getText();
 			int xRow = Integer.parseInt(text);
 			String text2 = textField_1.getText();
 			int yRow = Integer.parseInt(text2);
 			
-			
-			if (((xRow>2)&&(xRow<=10))&&((yRow>2)&&(yRow<=10)))
-			{
-				JFrame frame = new MainFrame(xRow,yRow);
+			if (((xRow > 2) && (xRow <= 10)) && ((yRow > 2) && (yRow <= 10))) {
+				JFrame frame = new MainFrame(xRow, yRow);
 				frame.setSize(1200, 700);
 				frame.setVisible(true);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,9 +106,8 @@ class TitleFrame extends JFrame implements ActionListener
 			else
 				throw new Exception();
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			textArea.setText("EXCEPTION, couldn't parse the values\n or invalid range of values");
-		}	
+		}
 	}
 }
