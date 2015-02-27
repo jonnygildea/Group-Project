@@ -35,9 +35,8 @@ public class CountWordApp implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent whichButtonClicked) {
 		String findWordBtn = "Find Word", clearBtn = "Clear", wordCountBtn = "Word Count";
-		String clickedButton = whichButtonClicked.getActionCommand(); // Store the reference of the
-																		// button clicked in the
-																		// clickedButton string.
+		String clickedButton = whichButtonClicked.getActionCommand();
+		// Store the reference of the button clicked in the clickedButton string.
 		
 		// Make a method call to findTheWord if 'Find Word' button is clicked.
 		if (findWordBtn.equals(clickedButton)) {

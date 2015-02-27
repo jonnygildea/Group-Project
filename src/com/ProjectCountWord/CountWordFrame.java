@@ -96,7 +96,7 @@ public class CountWordFrame extends JFrame {
 		super("Applet");
 		setLookAndFeel();
 		setBackground(Color.LIGHT_GRAY);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		GridLayout frameLayout = new GridLayout(1, 1);
 		setLayout(frameLayout);
 		

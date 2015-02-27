@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import com.ProjectCountWord.*;
+import com.ProjectGuessWord.*;
 
 public class launcher {
 	
@@ -59,6 +61,12 @@ public class launcher {
 		MainFrame.getContentPane().setLayout(new CardLayout(0, 0));
 		
 		LauncherPanel = new JPanel();
+		LauncherPanel.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				
+			}
+		});
 		MainFrame.getContentPane().add(LauncherPanel, "name_6222441403297");
 		LauncherPanel.setLayout(null);
 		
@@ -68,7 +76,7 @@ public class launcher {
 		CountWord.setLayout(null);
 		
 		JButton btnCountWordExit = new JButton("Return To Game Select");
-		btnCountWordExit.setBounds(0, 0, 167, 23);
+		btnCountWordExit.setBounds(0, 0, 165, 23);
 		CountWord.add(btnCountWordExit);
 		btnCountWordExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,28 +96,49 @@ public class launcher {
 				GuessWord.setVisible(false);
 			}
 		});
-		btnGuessWordExit.setBounds(0, 0, 143, 23);
+		btnGuessWordExit.setBounds(0, 0, 165, 23);
 		GuessWord.add(btnGuessWordExit);
 		
-		JButton btnCountWord = new JButton("CountWord");
-		btnCountWord.addActionListener(new ActionListener() {
+		JButton btnCountWordPan = new JButton("CountWord as panel");
+		btnCountWordPan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LauncherPanel.setVisible(false);
 				CountWord.setVisible(true);
 			}
 		});
-		btnCountWord.setBounds(10, 11, 195, 180);
-		LauncherPanel.add(btnCountWord);
+		btnCountWordPan.setBounds(10, 11, 195, 85);
+		LauncherPanel.add(btnCountWordPan);
 		
-		JButton btnGuessWord = new JButton("GuessWord");
-		btnGuessWord.addActionListener(new ActionListener() {
+		JButton btnGuessWordPan = new JButton("GuessWord as panel");
+		btnGuessWordPan.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LauncherPanel.setVisible(false);
 				GuessWord.setVisible(true);
 			}
 		});
-		btnGuessWord.setBounds(229, 11, 195, 180);
-		LauncherPanel.add(btnGuessWord);
+		
+		JButton btnCountWordWin = new JButton("CountWord as window");
+		btnCountWordWin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.setVisible(false);
+				CountWordFrame aCountWordFrame = new CountWordFrame();
+				aCountWordFrame.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						MainFrame.setVisible(true);
+					}
+				});
+				
+			}
+		});
+		btnCountWordWin.setBounds(10, 107, 195, 85);
+		LauncherPanel.add(btnCountWordWin);
+		btnGuessWordPan.setBounds(229, 11, 195, 85);
+		LauncherPanel.add(btnGuessWordPan);
+		
+		JButton btnGuessWordWin = new JButton("GuessWord as window");
+		btnGuessWordWin.setBounds(229, 107, 195, 85);
+		LauncherPanel.add(btnGuessWordWin);
 		
 		JLabel lblNewLabel = new JLabel("Please select a game");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
