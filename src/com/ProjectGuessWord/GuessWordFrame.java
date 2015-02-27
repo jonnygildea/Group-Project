@@ -47,7 +47,7 @@ public class GuessWordFrame extends JFrame {
 		super("Applet");
 		setLookAndFeel();
 		setSize(550, 350);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FlowLayout frameLayout = new FlowLayout();
 		setLayout(frameLayout);
 		

@@ -19,13 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-public class WordCountFrame extends JFrame {
+public class CountWordFrame extends JFrame {
 	
 	// --- Instance variables ---
 	
 	// Cerate the object of WordCountApp class and pass the object of 'this' class.
 	// to create the link between the two classes.
-	WordCountApp app = new WordCountApp(this);
+	CountWordApp app = new CountWordApp(this);
 	
 	// Create main panel with border layout which contains
 	// the left panel and the right panel
@@ -91,12 +91,12 @@ public class WordCountFrame extends JFrame {
 	JButton wordCountButton = new JButton("Word Count");
 	
 	// Define the constructor
-	public WordCountFrame() {
+	public CountWordFrame() {
 		// Main frame layout
 		super("Applet");
 		setLookAndFeel();
 		setBackground(Color.LIGHT_GRAY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridLayout frameLayout = new GridLayout(1, 1);
 		setLayout(frameLayout);
 		
