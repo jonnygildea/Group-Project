@@ -17,26 +17,26 @@ import javax.swing.SwingConstants;
 
 import com.ProjectCountWord.*;
 import com.ProjectGuessWord.*;
+import javax.swing.ImageIcon;
 
-public class launcher {
+public class Launcher {
 	
 	// Launch the application.
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new launcher();
+					new Launcher();
 				}
 				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-			
 		});
 	}
 	
 	// Create the application.
-	public launcher() {
+	public Launcher() {
 		initialize();
 	}
 	
@@ -44,7 +44,7 @@ public class launcher {
 	private void initialize() {
 		// Define the main Jframe 
 		JFrame MainFrame = new JFrame();
-		MainFrame.setBounds(100, 100, 450, 300);
+		MainFrame.setBounds(100, 100, 466, 475);
 		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		MainFrame.getContentPane().setLayout(new CardLayout(0, 0));
 		// Center the frame on screen
@@ -80,7 +80,7 @@ public class launcher {
 				});
 			}
 		});
-		btnCountWordWindow.setBounds(10, 11, 195, 181);
+		btnCountWordWindow.setBounds(235, 244, 195, 150);
 		LauncherPanel.add(btnCountWordWindow);
 		
 		// Declare the button to launch the GuessWord game
@@ -105,15 +105,20 @@ public class launcher {
 				});
 			}
 		});
-		btnGuessWordWindow.setBounds(229, 11, 195, 181);
+		btnGuessWordWindow.setBounds(20, 244, 195, 150);
 		LauncherPanel.add(btnGuessWordWindow);
 		
 		// Set the label to instruct the user to choose a game
 		JLabel lblGameSelect = new JLabel("Please select a game");
 		// Align the text to be center aligned
 		lblGameSelect.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGameSelect.setBounds(152, 220, 130, 14);
+		lblGameSelect.setBounds(160, 413, 130, 14);
 		// add the label to the main content panel
 		LauncherPanel.add(lblGameSelect);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon(Launcher.class.getResource("/com/logo.png")));
+		lblLogo.setBounds(0, 0, 450, 233);
+		LauncherPanel.add(lblLogo);
 	}
 }

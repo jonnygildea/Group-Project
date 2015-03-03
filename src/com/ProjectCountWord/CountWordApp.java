@@ -107,7 +107,8 @@ public class CountWordApp implements ActionListener {
 	 * This method calculates the number of words, number of characters with spaces, number of
 	 * characters without spaces and number of paragraphs in the textarea.
 	 */
-	private void countAll() {
+	//private void countAll() {
+	public void countAll() {
 		String textAreaString = test.enterTextArea.getText();
 		String numTotalChars = "", numTotalWords = "", numTotalPara = "", numTotalCharsNoSpace = "";
 		int totalWords = 0, totalCharsNoSpaces = 0, totalChars = 0;
