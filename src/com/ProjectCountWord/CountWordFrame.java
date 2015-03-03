@@ -23,6 +23,11 @@ public class CountWordFrame extends JFrame {
 	
 	// --- Instance variables ---
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	// Cerate the object of WordCountApp class and pass the object of 'this' class.
 	// to create the link between the two classes.
 	CountWordApp app = new CountWordApp(this);
@@ -96,7 +101,7 @@ public class CountWordFrame extends JFrame {
 		super("Applet");
 		setLookAndFeel();
 		setBackground(Color.LIGHT_GRAY);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		GridLayout frameLayout = new GridLayout(1, 1);
 		setLayout(frameLayout);
 		

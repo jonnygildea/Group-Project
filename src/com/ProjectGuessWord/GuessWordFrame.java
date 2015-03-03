@@ -20,6 +20,11 @@ import javax.swing.border.EmptyBorder;
  import java.awt.event.ActionEvent;*/
 
 public class GuessWordFrame extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	// Create the object of GuessWordApp class and pass the object of 'this' class
 	// to create the link between the two classes
 	GuessWordApp app = new GuessWordApp(this);

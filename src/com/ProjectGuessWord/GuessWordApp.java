@@ -63,7 +63,7 @@ public class GuessWordApp implements ActionListener {
 		
 		if (index == -1) {
 			numGuessesLeft--;
-			livesLeft = livesLeft.valueOf(numGuessesLeft);
+			livesLeft = String.valueOf(numGuessesLeft);
 			test.guessRemTxt.setText(livesLeft);
 			if (numGuessesLeft == 0)
 				JOptionPane.showMessageDialog(null, "You Lose");
