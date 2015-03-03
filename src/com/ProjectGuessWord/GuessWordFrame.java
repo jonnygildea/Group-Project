@@ -85,7 +85,9 @@ public class GuessWordFrame extends JFrame {
 			inputButtons[i] = new JButton(title[i]);
 			inputButtons[i].addActionListener(app);
 			row3.add(inputButtons[i]);
+			inputButtons[i].setEnabled(false);
 		}
+		inputButtons[26].setEnabled(true);
 		
 		row3.setBorder(new EmptyBorder(20, 20, 40, 20));
 		add(row3);
