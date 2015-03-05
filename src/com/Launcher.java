@@ -17,6 +17,9 @@ import javax.swing.SwingConstants;
 
 import com.ProjectCountWord.*;
 import com.ProjectGuessWord.*;
+import com.Vitalij.Main;
+import com.Vitalij.TitleFrame;
+
 import javax.swing.ImageIcon;
 
 public class Launcher {
@@ -44,47 +47,71 @@ public class Launcher {
 	private void initialize() {
 		// Define the main Jframe 
 		JFrame MainFrame = new JFrame();
-		MainFrame.setBounds(100, 100, 466, 475);
+		MainFrame.setResizable(false);
+		MainFrame.setBounds(100, 100, 497, 481);
 		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		MainFrame.getContentPane().setLayout(new CardLayout(0, 0));
 		// Center the frame on screen
 		MainFrame.setLocationRelativeTo(null);
 		// Set the main window to be visible
 		MainFrame.setVisible(true);
+		MainFrame.getContentPane().setLayout(null);
 		
 		// Declare content panel
 		JPanel LauncherPanel = new JPanel();
-		MainFrame.getContentPane().add(LauncherPanel, "LauncherPanel JPanel");
-		// Set layout to absolute
+		LauncherPanel.setBounds(-10003, -10025, 491, 470);
+		MainFrame.getContentPane().add(LauncherPanel);
 		LauncherPanel.setLayout(null);
 		
 		// Declare the button to launch the CountWord game
 		JButton btnCountWordWindow = new JButton("CountWord");
-		// Launch the CountWord game on button press
-		btnCountWordWindow.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnCountWordWindow.setBounds(336, 265, 145, 135);
+		MainFrame.getContentPane().add(btnCountWordWindow);
+		
+		// Declare the button to launch the GuessWord game
+		JButton btnGuessWordWindow = new JButton("GuessWord");
+		btnGuessWordWindow.setBounds(10, 265, 135, 135);
+		MainFrame.getContentPane().add(btnGuessWordWindow);
+		
+		JButton btnVitalijGame = new JButton("VitalijGame");
+		btnVitalijGame.setBounds(175, 265, 140, 135);
+		MainFrame.getContentPane().add(btnVitalijGame);
+		
+		// Set the label to instruct the user to choose a game
+		JLabel lblGameSelect = new JLabel("Please select a game");
+		lblGameSelect.setBounds(173, 423, 145, 14);
+		MainFrame.getContentPane().add(lblGameSelect);
+		// Align the text to be center aligned
+		lblGameSelect.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(10, 11, 471, 243);
+		MainFrame.getContentPane().add(lblLogo);
+		lblLogo.setIcon(new ImageIcon(Launcher.class.getResource("/com/logo.png")));
+		btnVitalijGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				// Hide the main window so only one window is visible at a time
-				MainFrame.setVisible(false);
-				// Launch the CountWord game
-				CountWordFrame aCountWordFrame = new CountWordFrame();
+				//MainFrame.setVisible(false);
+				// Launch the GuessWord game
+				TitleFrame VitalijGame = new TitleFrame();
+				//VitalijGame.setSize(480, 260);
+				VitalijGame.setVisible(true);
+				VitalijGame.setResizable(true);
+				//VitalijGame.setSize(482, 313);
+				//VitalijGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
 				// Center the window on screen
-				aCountWordFrame.setLocationRelativeTo(null);
+				VitalijGame.setLocationRelativeTo(null);
 				// Define an action listener that runs when the game window is closed
-				aCountWordFrame.addWindowListener(new WindowAdapter() {
+				VitalijGame.addWindowListener(new WindowAdapter() {
 					public void windowClosing(WindowEvent ev) {
 						// Mark the game window to release all its resources 
-						aCountWordFrame.dispose();
+						VitalijGame.dispose();
 						// Set the main window visible again
 						MainFrame.setVisible(true);
 					}
 				});
 			}
 		});
-		btnCountWordWindow.setBounds(235, 244, 195, 150);
-		LauncherPanel.add(btnCountWordWindow);
-		
-		// Declare the button to launch the GuessWord game
-		JButton btnGuessWordWindow = new JButton("GuessWord");
 		// Launch the GuessWord game on button press
 		btnGuessWordWindow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -105,20 +132,25 @@ public class Launcher {
 				});
 			}
 		});
-		btnGuessWordWindow.setBounds(20, 244, 195, 150);
-		LauncherPanel.add(btnGuessWordWindow);
-		
-		// Set the label to instruct the user to choose a game
-		JLabel lblGameSelect = new JLabel("Please select a game");
-		// Align the text to be center aligned
-		lblGameSelect.setHorizontalAlignment(SwingConstants.CENTER);
-		lblGameSelect.setBounds(160, 413, 130, 14);
-		// add the label to the main content panel
-		LauncherPanel.add(lblGameSelect);
-		
-		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon(Launcher.class.getResource("/com/logo.png")));
-		lblLogo.setBounds(0, 0, 450, 233);
-		LauncherPanel.add(lblLogo);
+		// Launch the CountWord game on button press
+		btnCountWordWindow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Hide the main window so only one window is visible at a time
+				MainFrame.setVisible(false);
+				// Launch the CountWord game
+				CountWordFrame aCountWordFrame = new CountWordFrame();
+				// Center the window on screen
+				aCountWordFrame.setLocationRelativeTo(null);
+				// Define an action listener that runs when the game window is closed
+				aCountWordFrame.addWindowListener(new WindowAdapter() {
+					public void windowClosing(WindowEvent ev) {
+						// Mark the game window to release all its resources 
+						aCountWordFrame.dispose();
+						// Set the main window visible again
+						MainFrame.setVisible(true);
+					}
+				});
+			}
+		});
 	}
 }
