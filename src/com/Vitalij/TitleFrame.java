@@ -12,6 +12,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
+import sun.misc.Launcher;
+
 public class TitleFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	final JTextField textField;
@@ -75,7 +77,7 @@ public class TitleFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (btnNewGame == e.getSource()) {
-			validator();
+			NewGame();
 		}
 		if (btnLoad == e.getSource()) {
 			FileOperations.load();
@@ -83,26 +85,31 @@ public class TitleFrame extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void validator() {
+	public void NewGame() {
 		String text = textField.getText();
 		int xRow = Integer.parseInt(text);
 		String text2 = textField_1.getText();
 		int yRow = Integer.parseInt(text2);
 		
 		if (((xRow > 2) && (xRow <= 10)) && ((yRow > 2) && (yRow <= 10))) {
-			System.out.println(xRow + " " + yRow);
+			//System.out.println(xRow + " " + yRow);
 			MainFrame frame = new MainFrame(xRow, yRow);
 			frame.setSize(1200, 700);
 			frame.setVisible(true);
 			//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			this.setVisible(false);
+			//this.dispose();
 			frame.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent ev) {
-					// Mark the game window to release all its resources 
-					frame.dispose();
+					
 					// Set the main window visible again
+					rootPane.setVisible(true);
 				}
 			});
+		}
+		else {
+			System.out.println("row size too big");
+			System.exit(1);
 		}
 	}
 }

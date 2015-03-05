@@ -20,13 +20,14 @@ import com.Vitalij.TitleFrame;
 import javax.swing.ImageIcon;
 
 public class Launcher {
+	static Launcher aLauncher;
 	
 	// Launch the application.
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Launcher();
+					aLauncher = new Launcher();
 				}
 				catch (Exception e) {
 					e.printStackTrace();
@@ -38,6 +39,10 @@ public class Launcher {
 	// Create the application.
 	public Launcher() {
 		initialize();
+	}
+	
+	public Launcher getLauncher() {
+		return aLauncher;
 	}
 	
 	// Initialise the contents of the frame.
@@ -94,7 +99,7 @@ public class Launcher {
 				VitalijGame.setSize(490, 250);
 				VitalijGame.setVisible(true);
 				//VitalijGame.setResizable(true);
-				VitalijGame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				VitalijGame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				
 				// Center the window on screen
 				VitalijGame.setLocationRelativeTo(null);
@@ -109,6 +114,7 @@ public class Launcher {
 				});
 			}
 		});
+		
 		// Launch the GuessWord game on button press
 		btnGuessWordWindow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -129,6 +135,7 @@ public class Launcher {
 				});
 			}
 		});
+		
 		// Launch the CountWord game on button press
 		btnCountWordWindow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
