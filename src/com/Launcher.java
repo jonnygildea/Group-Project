@@ -9,15 +9,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.CardLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import com.ProjectCountWord.*;
 import com.ProjectGuessWord.*;
-import com.Vitalij.Main;
 import com.Vitalij.TitleFrame;
 
 import javax.swing.ImageIcon;
@@ -87,17 +84,17 @@ public class Launcher {
 		lblLogo.setBounds(10, 11, 471, 243);
 		MainFrame.getContentPane().add(lblLogo);
 		lblLogo.setIcon(new ImageIcon(Launcher.class.getResource("/com/logo.png")));
+		
 		btnVitalijGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Hide the main window so only one window is visible at a time
-				//MainFrame.setVisible(false);
+				MainFrame.setVisible(false);
 				// Launch the GuessWord game
 				TitleFrame VitalijGame = new TitleFrame();
-				//VitalijGame.setSize(480, 260);
+				VitalijGame.setSize(490, 250);
 				VitalijGame.setVisible(true);
-				VitalijGame.setResizable(true);
-				//VitalijGame.setSize(482, 313);
-				//VitalijGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				//VitalijGame.setResizable(true);
+				VitalijGame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 				
 				// Center the window on screen
 				VitalijGame.setLocationRelativeTo(null);

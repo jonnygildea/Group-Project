@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +26,6 @@ class MainFrame extends JFrame implements ActionListener {
 	JPanel detailsPanel;
 	JPanel actionPanel;
 	JPanel textPanel;
-	//JTextField textField = new JTextField(10);
 	JTextArea textArea = new JTextArea();
 	JScrollPane scrollPane = new JScrollPane(textArea);
 	
@@ -54,6 +54,67 @@ class MainFrame extends JFrame implements ActionListener {
 	
 	Color originalP1TextHealthColor;
 	
+	JButton saveButton;
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	JLabel tile = new JLabel();
+	JLabel p1label = new JLabel();
+	JLabel p2label = new JLabel();
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	
+	String player1icon = "/com/Vitalij/player1.png";
+	String player2icon = "/com/Vitalij/player2.png";
+	String tile1icon = "/com/Vitalij/tile1.png";
+	
+	public MainFrame(Record r) {
+		this(r.getxRow(), r.getyRow());
+		
+		//////////////////////////////////////
+		p1 = new Location(r.getPlayer1CurrentLocationX(), r.getPlayer1CurrentLocationY());
+		p1last = new Location(r.getPlayer1LastLocationX(), r.getPlayer1LastLocationY());
+		p2 = new Location(r.getPlayer2CurrentLocationX(), r.getPlayer2CurrentLocationY());
+		p2last = new Location(r.getPlayer2LastLocationX(), r.getPlayer2LastLocationY());
+		
+		player1.setCurrent(p1);
+		player1.setLast(p1last);
+		player2.setCurrent(p2);
+		player2.setLast(p2last);
+		
+		player1.setHealth(r.getP1Health());
+		player1.setStamina(r.getP1Stamina());
+		player2.setHealth(r.getP2Health());
+		player2.setStamina(r.getP2Stamina());
+		
+		sign = r.getSign();
+		
+		p1TextHealth.setText(Integer.toString(player1.getHealth()));
+		p1TextStamina.setText(Integer.toString(player1.getStamina()));
+		p2TextHealth.setText(Integer.toString(player2.getHealth()));
+		p2TextStamina.setText(Integer.toString(player2.getStamina()));
+		
+		//button[xRow-1][0].setText("");
+		button[xRow - 1][0].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
+		//button[0][yRow-1].setText("");
+		button[0][yRow - 1].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
+		
+		//button[player1.getCurrent().getX()][player1.getCurrent().getY()].setText("Player1");
+		//button[player2.getCurrent().getX()][player2.getCurrent().getY()].setText("Player2");
+		
+		button[player1.getCurrent().getX()][player1.getCurrent().getY()].setIcon(new ImageIcon(MainFrame.class.getResource(player1icon)));
+		button[player2.getCurrent().getX()][player2.getCurrent().getY()].setIcon(new ImageIcon(MainFrame.class.getResource(player2icon)));
+		
+		if (sign % 2 == 0)
+			displayMovementArea(p1);
+		else
+			displayMovementArea(p2);
+		
+		setTextColor();
+	};
+	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public MainFrame(int x, int y) {
 		super();
 		xRow = x;
@@ -61,15 +122,22 @@ class MainFrame extends JFrame implements ActionListener {
 		
 		button = new JButton[xRow][yRow];
 		
-		p1 = new Location(xRow - 1, 0);
-		p1last = new Location(xRow - 1, 0);
-		p2 = new Location(0, yRow - 1);
-		p2last = new Location(0, yRow - 1);
-		
 		player1 = new Player();
 		player2 = new Player();
 		
-		textArea.setEditable(false);		                                              ////////// mah shit
+		p1 = new Location(xRow - 1, 0);
+		player1.setCurrent(p1);
+		
+		p1last = new Location(xRow - 1, 0);
+		player1.setLast(p1last);
+		
+		p2 = new Location(0, yRow - 1);
+		player2.setCurrent(p2);
+		
+		p2last = new Location(0, yRow - 1);
+		player2.setLast(p2last);
+		
+		textArea.setEditable(false);
 		
 		detailsPanel = new JPanel();
 		actionPanel = new JPanel();
@@ -99,43 +167,58 @@ class MainFrame extends JFrame implements ActionListener {
 		
 		originalP1TextHealthColor = p1TextHealth.getBackground();
 		
+		saveButton = new JButton("SAVE");
+		detailsPanel.add(saveButton);// Adding Save Button
+		saveButton.addActionListener(this);
+		
 		// textPanel setup
-		Dimension size2 = getPreferredSize();
 		size.width = 250;
 		textPanel.setPreferredSize(size);
 		textPanel.setBorder(BorderFactory.createTitledBorder("STATS"));
 		textArea.append("GAME STARTED\n \n");
 		
 		textPanel.setLayout(new BorderLayout());
-		//textPanel.add(textArea);
 		textPanel.add(scrollPane);
 		
 		// ActionPanel setup
 		actionPanel.setBorder(BorderFactory.createTitledBorder("GAME AREA"));
 		actionPanel.setLayout(new GridLayout(xRow, yRow));
 		
+		///////////////////////////////////////////////////////////////////////////////
+		tile.setIcon(new ImageIcon(tile1icon));
+		tile.setVisible(true);
+		p1label.setIcon(new ImageIcon(player1icon));
+		tile.setVisible(true);
+		p2label.setIcon(new ImageIcon("player2icon"));
+		tile.setVisible(true);
+		////////////////////////////////////////////////////////////////////////////////
+		
 		for (int i = 0; i < xRow; i++) {
 			for (int j = 0; j < yRow; j++) {
 				button[i][j] = new JButton();
-				//button[i][j].setIcon(new ImageIcon("G:\\PROJECT\\blank.png"));
+				button[i][j].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
+				
+				button[i][j].setBorderPainted(false);
+				button[i][j].setContentAreaFilled(false);
+				
 				actionPanel.add(button[i][j]);
 				button[i][j].setEnabled(false);
 				button[i][j].addActionListener(this);
-				
 			}
 			
 		}
 		actionPanel.setVisible(true);
 		
-		button[xRow - 1][0].setText("Player 1");
-		//button[2][0].setIcon(new ImageIcon("G:\\PROJECT\\Player1.png"));
-		button[0][yRow - 1].setText("Player 2");
-		//button[2][4].setIcon(new ImageIcon("G:\\PROJECT\\Player2.png"));
+		button[xRow - 1][0].setIcon(new ImageIcon(MainFrame.class.getResource(player1icon)));
+		//button[xRow-1][0].setText("Player 1");
+		
+		button[0][yRow - 1].setIcon(new ImageIcon(MainFrame.class.getResource(player2icon)));
+		//button[0][yRow-1].setText("Player 2");
 		
 		displayMovementArea(p1last);
 		
 		// Setup Panels on a frame
-		setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
 		Container c = getContentPane();
 		c.add(textPanel, BorderLayout.EAST);
 		c.add(actionPanel, BorderLayout.CENTER);
@@ -145,119 +228,100 @@ class MainFrame extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (player1.getHealth() <= 75)
-			p1TextHealth.setBackground(Color.YELLOW);
-		if (player1.getHealth() <= 50)
-			p1TextHealth.setBackground(Color.ORANGE);
-		if (player1.getHealth() > 75)
-			p1TextHealth.setBackground(originalP1TextHealthColor);
-		//if (player1.getHealth()==0)
-		//	p1TextHealth.setBackground(Color.RED);					// Currently set in check method
+		if (saveButton == e.getSource()) {
+			FileOperations.save(this);
+		}
 		
-		if (player1.getStamina() <= 75)
-			p1TextStamina.setBackground(Color.YELLOW);
-		if (player1.getStamina() <= 50)
-			p1TextStamina.setBackground(Color.ORANGE);
-		if (player1.getStamina() > 75)
-			p1TextStamina.setBackground(originalP1TextHealthColor);
-		//if (player1.getStamina()==0)
-		//	p1TextStamina.setBackground(Color.RED);					// Currently set in check method
-		
-		if (player2.getHealth() <= 75)
-			p2TextHealth.setBackground(Color.YELLOW);
-		if (player2.getHealth() <= 50)
-			p2TextHealth.setBackground(Color.ORANGE);
-		if (player2.getHealth() > 75)
-			p2TextHealth.setBackground(originalP1TextHealthColor);
-		//if (player2.getHealth()==0)
-		//	p2TextHealth.setBackground(Color.RED);					// Currently set in check method
-		
-		if (player2.getStamina() <= 75)
-			p2TextStamina.setBackground(Color.YELLOW);
-		if (player2.getStamina() <= 50)
-			p2TextStamina.setBackground(Color.ORANGE);
-		if (player2.getStamina() > 75)
-			p2TextStamina.setBackground(originalP1TextHealthColor);
-		//if (player2.getStamina()==0)
-		//	p2TextStamina.setBackground(Color.RED);                 // Currently set in check method
-		
-		for (int i = 0; i < xRow; i++) {
-			for (int j = 0; j < yRow; j++) {
-				if (button[i][j] == e.getSource()) {
-					if (sign % 2 == 0) {
-						if ((i == p2.getX()) && (j == p2.getY())) {
-							player2.setHealth(player2.getHealth() - 30);
-							player1.setStamina(player1.getStamina() - 10);
-							p2TextHealth.setText(Integer.toString(player2.getHealth()));
-							p1TextStamina.setText(Integer.toString(player1.getStamina()));
-							
-							displayMovementArea(p2);
-							textArea.append("Player 1 attacks for 30 HP,\n PLAYER 2 TURN\n \n");
-							check();
-						}
-						else if ((i == p1.getX()) && (j == p1.getY())) {
-							player1.setStamina(player1.getStamina() + 10);
-							p1TextStamina.setText(Integer.toString(player1.getStamina()));
-							
-							displayMovementArea(p2);
-							textArea.append("Player 1 stays,\n PLAYER 2 TURN\n \n");
-							check();
+		else {
+			setTextColor();
+			
+			for (int i = 0; i < xRow; i++) {
+				for (int j = 0; j < yRow; j++) {
+					if (button[i][j] == e.getSource()) {
+						if (sign % 2 == 0) {
+							if ((i == p2.getX()) && (j == p2.getY())) {
+								player2.setHealth(player2.getHealth() - 30);
+								player1.setStamina(player1.getStamina() - 10);
+								p2TextHealth.setText(Integer.toString(player2.getHealth()));
+								p1TextStamina.setText(Integer.toString(player1.getStamina()));
+								
+								displayMovementArea(p2);
+								textArea.append("Player 1 attacks for 30 HP,\n PLAYER 2 TURN\n \n");
+								check();
+							}
+							else if ((i == p1.getX()) && (j == p1.getY())) {
+								player1.setStamina(player1.getStamina() + 10);
+								p1TextStamina.setText(Integer.toString(player1.getStamina()));
+								
+								displayMovementArea(p2);
+								textArea.append("Player 1 stays,\n PLAYER 2 TURN\n \n");
+								check();
+							}
+							else {
+								//button[i][j].setText("Player 1");
+								button[i][j].setIcon(new ImageIcon(MainFrame.class.getResource(player1icon)));
+								
+								p1last = p1;
+								player1.setLast(p1last);
+								
+								p1 = new Location(i, j);
+								player1.setCurrent(p1);
+								
+								//button[p1last.getX()][p1last.getY()].setText("");
+								button[p1last.getX()][p1last.getY()].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
+								
+								player1.setStamina(player1.getStamina() - 5);
+								p1TextStamina.setText(Integer.toString(player1.getStamina()));
+								
+								displayMovementArea(p2);
+								textArea.append("Player 1 moved,\n PLAYER 2 TURN\n \n");
+								check();
+							}
 						}
 						else {
-							button[i][j].setText("Player 1");
-							//button[i][j].setIcon(new ImageIcon("G:\\PROJECT\\Player1.png"));
-							button[i][j].setEnabled(false);
-							p1last = p1;
-							p1 = new Location(i, j);
-							button[p1last.getX()][p1last.getY()].setText("");
-							//button[p1last.getX()][p1last.getY()].setIcon(null);
-							
-							player1.setStamina(player1.getStamina() - 5);
-							p1TextStamina.setText(Integer.toString(player1.getStamina()));
-							
-							displayMovementArea(p2);
-							textArea.append("Player 1 moved,\n PLAYER 2 TURN\n \n");
-							check();
+							if ((i == p1.getX()) && (j == p1.getY())) {
+								player1.setHealth(player1.getHealth() - 30);
+								player2.setStamina(player2.getStamina() - 10);
+								p1TextHealth.setText(Integer.toString(player1.getHealth()));
+								p2TextStamina.setText(Integer.toString(player2.getStamina()));
+								
+								displayMovementArea(p1);
+								textArea.append("Player 2 attacks for 30HP, \nPLAYER 1 TURN\n \n");
+								check();
+							}
+							else if ((i == p2.getX()) && (j == p2.getY())) {
+								player2.setStamina(player2.getStamina() + 10);
+								p2TextStamina.setText(Integer.toString(player2.getStamina()));
+								
+								displayMovementArea(p1);
+								textArea.append("Player 2 stays,\nPLAYER 1 TURN\n \n");
+								check();
+							}
+							else {
+								//button[i][j].setText("Player 2");	
+								button[i][j].setIcon(new ImageIcon(MainFrame.class.getResource(player2icon)));
+								button[i][j].setEnabled(false);
+								
+								p2last = p2;
+								player2.setLast(p2last);
+								
+								p2 = new Location(i, j);
+								player2.setCurrent(p2);
+								
+								//button[p2last.getX()][p2last.getY()].setText("");
+								button[p2last.getX()][p2last.getY()].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
+								
+								player2.setStamina(player2.getStamina() - 5);
+								p2TextStamina.setText(Integer.toString(player2.getStamina()));
+								
+								displayMovementArea(p1);
+								textArea.append("Player 2 moved,\n PLAYER 1 TURN\n \n");
+								check();
+							}
 						}
+						sign++;
+						count++;
 					}
-					else {
-						if ((i == p1.getX()) && (j == p1.getY())) {
-							player1.setHealth(player1.getHealth() - 30);
-							player2.setStamina(player2.getStamina() - 10);
-							p1TextHealth.setText(Integer.toString(player1.getHealth()));
-							p2TextStamina.setText(Integer.toString(player2.getStamina()));
-							
-							displayMovementArea(p1);
-							textArea.append("Player 2 attacks for 30HP, \nPLAYER 1 TURN\n \n");
-							check();
-						}
-						else if ((i == p2.getX()) && (j == p2.getY())) {
-							player2.setStamina(player2.getStamina() + 10);
-							p2TextStamina.setText(Integer.toString(player2.getStamina()));
-							
-							displayMovementArea(p1);
-							textArea.append("Player 2 stays,\nPLAYER 1 TURN\n \n");
-							check();
-						}
-						else {
-							button[i][j].setText("Player 2");
-							//button[i][j].setIcon(new ImageIcon("G:\\PROJECT\\Player2.png"));
-							button[i][j].setEnabled(false);
-							p2last = p2;
-							p2 = new Location(i, j);
-							button[p2last.getX()][p2last.getY()].setText("");
-							//button[p2last.getX()][p2last.getY()].setIcon(null);
-							
-							player2.setStamina(player2.getStamina() - 5);
-							p2TextStamina.setText(Integer.toString(player2.getStamina()));
-							
-							displayMovementArea(p1);
-							textArea.append("Player 2 moved,\n PLAYER 1 TURN\n \n");
-							check();
-						}
-					}
-					sign++;
-					count++;
 				}
 			}
 		}
@@ -309,6 +373,7 @@ class MainFrame extends JFrame implements ActionListener {
 	}
 	
 	// Checks if anyone won yet
+	@SuppressWarnings("unused")
 	public void check() {
 		if ((sign % 2 != 0) && (player1.getStamina() == 0))
 			textArea.append("Player 1 has no stamina left,\n can only stay\n \n");
@@ -320,6 +385,7 @@ class MainFrame extends JFrame implements ActionListener {
 			textArea.append("GAME OVER,\n Player 2 won\n \n");
 			p1TextHealth.setBackground(Color.RED);
 			gameOver();
+			Popup gameover = new Popup(1);
 		}
 		else {
 			if (player2.getHealth() <= 0) {
@@ -327,6 +393,7 @@ class MainFrame extends JFrame implements ActionListener {
 				textArea.append("GAME OVER,\n Player 1 won\n \n");
 				p2TextHealth.setBackground(Color.RED);
 				gameOver();
+				Popup gameover = new Popup(2);
 			}
 		}
 	}
@@ -338,5 +405,97 @@ class MainFrame extends JFrame implements ActionListener {
 				button[i][j].setEnabled(false);
 			}
 		}
+		
+	}
+	
+	public void setTextColor() {
+		if (player1.getHealth() <= 75)
+			p1TextHealth.setBackground(Color.YELLOW);
+		if (player1.getHealth() <= 50)
+			p1TextHealth.setBackground(Color.ORANGE);
+		if (player1.getHealth() > 75)
+			p1TextHealth.setBackground(originalP1TextHealthColor);
+		//if (player1.getHealth()==0)
+		//	p1TextHealth.setBackground(Color.RED);					// Currently set in check method
+		
+		if (player1.getStamina() <= 75)
+			p1TextStamina.setBackground(Color.YELLOW);
+		if (player1.getStamina() <= 50)
+			p1TextStamina.setBackground(Color.ORANGE);
+		if (player1.getStamina() > 75)
+			p1TextStamina.setBackground(originalP1TextHealthColor);
+		//if (player1.getStamina()==0)
+		//	p1TextStamina.setBackground(Color.RED);					// Currently set in check method
+		
+		if (player2.getHealth() <= 75)
+			p2TextHealth.setBackground(Color.YELLOW);
+		if (player2.getHealth() <= 50)
+			p2TextHealth.setBackground(Color.ORANGE);
+		if (player2.getHealth() > 75)
+			p2TextHealth.setBackground(originalP1TextHealthColor);
+		//if (player2.getHealth()==0)
+		//	p2TextHealth.setBackground(Color.RED);					// Currently set in check method
+		
+		if (player2.getStamina() <= 75)
+			p2TextStamina.setBackground(Color.YELLOW);
+		if (player2.getStamina() <= 50)
+			p2TextStamina.setBackground(Color.ORANGE);
+		if (player2.getStamina() > 75)
+			p2TextStamina.setBackground(originalP1TextHealthColor);
+		// if (player2.getStamina()==0)
+		// p2TextStamina.setBackground(Color.RED);                 // Currently set in check method
+		
+	}
+	
+	public Location getP1() {
+		return p1;
+	}
+	
+	public void setP1(Location p1) {
+		this.p1 = p1;
+	}
+	
+	public Location getP1last() {
+		return p1last;
+	}
+	
+	public void setP1last(Location p1last) {
+		this.p1last = p1last;
+	}
+	
+	public Location getP2() {
+		return p2;
+	}
+	
+	public void setP2(Location p2) {
+		this.p2 = p2;
+	}
+	
+	public Location getP2last() {
+		return p2last;
+	}
+	
+	public void setP2last(Location p2last) {
+		this.p2last = p2last;
+	}
+	
+	public int getSign() {
+		return sign;
+	}
+	
+	public int getxRow() {
+		return xRow;
+	}
+	
+	public void setxRow(int xRow) {
+		this.xRow = xRow;
+	}
+	
+	public int getyRow() {
+		return yRow;
+	}
+	
+	public void setyRow(int yRow) {
+		this.yRow = yRow;
 	}
 }
