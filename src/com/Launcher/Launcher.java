@@ -44,7 +44,7 @@ public class Launcher {
 		// Define the main Jframe 
 		JFrame LauncherFrame = new JFrame();
 		LauncherFrame.setResizable(false);
-		LauncherFrame.setBounds(100, 100, 497, 481);
+		LauncherFrame.setSize(497, 481);
 		LauncherFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Center the frame on screen
 		LauncherFrame.setLocationRelativeTo(null);
