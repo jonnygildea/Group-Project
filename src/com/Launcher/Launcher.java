@@ -1,4 +1,4 @@
-package com;
+package com.Launcher;
 
 import java.awt.EventQueue;
 
@@ -78,7 +78,7 @@ public class Launcher {
 		lblLogo.setBounds(10, 11, 471, 243);
 		LauncherFrame.getContentPane().add(lblLogo);
 		// use the class resource logo.png 
-		lblLogo.setIcon(new ImageIcon(Launcher.class.getResource("/com/logo.png")));
+		lblLogo.setIcon(new ImageIcon(Launcher.class.getResource("/com/Launcher/logo.png")));
 		
 		// Launch the Vitalijs game on button press
 		btnVitalijGame.addActionListener(new ActionListener() {
