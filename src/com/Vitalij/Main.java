@@ -8,7 +8,6 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame frame = new TitleFrame();
-				frame.setSize(480, 260);
 				frame.setVisible(true);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}

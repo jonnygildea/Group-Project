@@ -25,6 +25,8 @@ public class TitleFrame extends JFrame implements ActionListener {
 	public TitleFrame() {
 		super();
 		setResizable(false);
+		setSize(490, 250);
+		setLocationRelativeTo(null);
 		setTitle("THE GAME");
 		getContentPane().setLayout(null);
 		btnNewGame.setBounds(10, 11, 131, 23);
@@ -77,6 +79,7 @@ public class TitleFrame extends JFrame implements ActionListener {
 			NewGame();
 		}
 		if (btnLoad == e.getSource()) {
+			// define the rootpane and pass it to the load method so it can set visible when need
 			rootPane = getRootPane();
 			FileOperations.load(rootPane);
 			this.setVisible(false);
