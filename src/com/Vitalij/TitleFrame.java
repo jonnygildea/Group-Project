@@ -12,8 +12,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-import sun.misc.Launcher;
-
 public class TitleFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	final JTextField textField;
@@ -71,7 +69,6 @@ public class TitleFrame extends JFrame implements ActionListener {
 		JLabel label_1 = new JLabel("(3 - 10) ");
 		label_1.setBounds(86, 101, 46, 14);
 		getContentPane().add(label_1);
-		//if ("save.ser" is)
 	}
 	
 	@Override
@@ -80,7 +77,8 @@ public class TitleFrame extends JFrame implements ActionListener {
 			NewGame();
 		}
 		if (btnLoad == e.getSource()) {
-			FileOperations.load();
+			rootPane = getRootPane();
+			FileOperations.load(rootPane);
 			this.setVisible(false);
 		}
 	}
@@ -96,14 +94,12 @@ public class TitleFrame extends JFrame implements ActionListener {
 			MainFrame frame = new MainFrame(xRow, yRow);
 			frame.setSize(1200, 700);
 			frame.setVisible(true);
-			//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			this.setVisible(false);
 			//this.dispose();
 			frame.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent ev) {
-					
-					// Set the main window visible again
-					rootPane.setVisible(true);
+					rootPane.getTopLevelAncestor().setVisible(true);
 				}
 			});
 		}

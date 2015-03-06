@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -67,10 +69,11 @@ class MainFrame extends JFrame implements ActionListener {
 	String player2icon = "/com/Vitalij/player2.png";
 	String tile1icon = "/com/Vitalij/tile1.png";
 	
+	///////////////////////////////////////////////////////////////////////////////
+	
 	public MainFrame(Record r) {
 		this(r.getxRow(), r.getyRow());
 		
-		//////////////////////////////////////
 		p1 = new Location(r.getPlayer1CurrentLocationX(), r.getPlayer1CurrentLocationY());
 		p1last = new Location(r.getPlayer1LastLocationX(), r.getPlayer1LastLocationY());
 		p2 = new Location(r.getPlayer2CurrentLocationX(), r.getPlayer2CurrentLocationY());
@@ -93,28 +96,28 @@ class MainFrame extends JFrame implements ActionListener {
 		p2TextHealth.setText(Integer.toString(player2.getHealth()));
 		p2TextStamina.setText(Integer.toString(player2.getStamina()));
 		
-		//button[xRow-1][0].setText("");
 		button[xRow - 1][0].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
-		//button[0][yRow-1].setText("");
 		button[0][yRow - 1].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
-		
-		//button[player1.getCurrent().getX()][player1.getCurrent().getY()].setText("Player1");
-		//button[player2.getCurrent().getX()][player2.getCurrent().getY()].setText("Player2");
 		
 		button[player1.getCurrent().getX()][player1.getCurrent().getY()].setIcon(new ImageIcon(MainFrame.class.getResource(player1icon)));
 		button[player2.getCurrent().getX()][player2.getCurrent().getY()].setIcon(new ImageIcon(MainFrame.class.getResource(player2icon)));
 		
-		if (sign % 2 == 0)
+		if (sign % 2 == 0) {
 			displayMovementArea(p1);
-		else
+		}
+		else {
 			displayMovementArea(p2);
+		}
 		
 		setTextColor();
-	};
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent ev) {
+				rootPane.getTopLevelAncestor().setVisible(true);
+			}
+		});
+	}
 	
-	/**
-	 * @wbp.parser.constructor
-	 */
 	public MainFrame(int x, int y) {
 		super();
 		xRow = x;
@@ -223,7 +226,13 @@ class MainFrame extends JFrame implements ActionListener {
 		c.add(textPanel, BorderLayout.EAST);
 		c.add(actionPanel, BorderLayout.CENTER);
 		c.add(detailsPanel, BorderLayout.WEST);
-		this.pack(); // WTF does this do ???
+		//this.pack(); // WTF does this do ???
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent ev) {
+				rootPane.getTopLevelAncestor().setVisible(true);
+			}
+		});
 	}
 	
 	@Override

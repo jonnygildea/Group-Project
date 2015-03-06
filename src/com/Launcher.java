@@ -85,9 +85,11 @@ public class Launcher {
 		// Align the text to be center aligned
 		lblGameSelect.setHorizontalAlignment(SwingConstants.CENTER);
 		
+		// Blank label to use for the logo 
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setBounds(10, 11, 471, 243);
 		MainFrame.getContentPane().add(lblLogo);
+		// use the class resource logo.png 
 		lblLogo.setIcon(new ImageIcon(Launcher.class.getResource("/com/logo.png")));
 		
 		btnVitalijGame.addActionListener(new ActionListener() {
@@ -98,9 +100,7 @@ public class Launcher {
 				TitleFrame VitalijGame = new TitleFrame();
 				VitalijGame.setSize(490, 250);
 				VitalijGame.setVisible(true);
-				//VitalijGame.setResizable(true);
 				VitalijGame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				
 				// Center the window on screen
 				VitalijGame.setLocationRelativeTo(null);
 				// Define an action listener that runs when the game window is closed
