@@ -42,13 +42,12 @@ class MainFrame extends JFrame implements ActionListener {
 	Location p2last;
 	
 	Player player1;
-	Player player2;
-	
 	JLabel p1LabelHealth = new JLabel("Player 1 Health");
 	JLabel p1LabelStamina = new JLabel("Player 1 Stamina");
 	JTextField p1TextHealth = new JTextField(10);
 	JTextField p1TextStamina = new JTextField(10);
 	
+	Player player2;
 	JLabel p2LabelHealth = new JLabel("Player 2 Health");
 	JLabel p2LabelStamina = new JLabel("Player 2 Stamina");
 	JTextField p2TextHealth = new JTextField(10);
@@ -58,7 +57,6 @@ class MainFrame extends JFrame implements ActionListener {
 	
 	JButton saveButton;
 	
-	//////////////////////////////////////////////////////////////////////////////////
 	JLabel tile = new JLabel();
 	JLabel p1label = new JLabel();
 	JLabel p2label = new JLabel();
@@ -170,15 +168,16 @@ class MainFrame extends JFrame implements ActionListener {
 		
 		originalP1TextHealthColor = p1TextHealth.getBackground();
 		
+		// Adding Save Button
 		saveButton = new JButton("SAVE");
-		detailsPanel.add(saveButton);// Adding Save Button
+		detailsPanel.add(saveButton);
 		saveButton.addActionListener(this);
 		
 		// textPanel setup
 		size.width = 250;
 		textPanel.setPreferredSize(size);
 		textPanel.setBorder(BorderFactory.createTitledBorder("STATS"));
-		textArea.append("GAME STARTED\n \n");
+		textArea.append("GAME STARTED\n\n");
 		
 		textPanel.setLayout(new BorderLayout());
 		textPanel.add(scrollPane);
@@ -192,7 +191,7 @@ class MainFrame extends JFrame implements ActionListener {
 		tile.setVisible(true);
 		p1label.setIcon(new ImageIcon(player1icon));
 		tile.setVisible(true);
-		p2label.setIcon(new ImageIcon("player2icon"));
+		p2label.setIcon(new ImageIcon(player2icon));
 		tile.setVisible(true);
 		////////////////////////////////////////////////////////////////////////////////
 		
@@ -213,10 +212,8 @@ class MainFrame extends JFrame implements ActionListener {
 		actionPanel.setVisible(true);
 		
 		button[xRow - 1][0].setIcon(new ImageIcon(MainFrame.class.getResource(player1icon)));
-		//button[xRow-1][0].setText("Player 1");
 		
 		button[0][yRow - 1].setIcon(new ImageIcon(MainFrame.class.getResource(player2icon)));
-		//button[0][yRow-1].setText("Player 2");
 		
 		displayMovementArea(p1last);
 		
@@ -226,7 +223,6 @@ class MainFrame extends JFrame implements ActionListener {
 		c.add(textPanel, BorderLayout.EAST);
 		c.add(actionPanel, BorderLayout.CENTER);
 		c.add(detailsPanel, BorderLayout.WEST);
-		//this.pack(); // WTF does this do ???
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent ev) {
@@ -240,7 +236,6 @@ class MainFrame extends JFrame implements ActionListener {
 		if (saveButton == e.getSource()) {
 			FileOperations.save(this);
 		}
-		
 		else {
 			setTextColor();
 			
@@ -255,7 +250,7 @@ class MainFrame extends JFrame implements ActionListener {
 								p1TextStamina.setText(Integer.toString(player1.getStamina()));
 								
 								displayMovementArea(p2);
-								textArea.append("Player 1 attacks for 30 HP,\n PLAYER 2 TURN\n \n");
+								textArea.append("Player 1 attacks for 30 HP,\n PLAYER 2 TURN\n\n");
 								check();
 							}
 							else if ((i == p1.getX()) && (j == p1.getY())) {
@@ -263,11 +258,10 @@ class MainFrame extends JFrame implements ActionListener {
 								p1TextStamina.setText(Integer.toString(player1.getStamina()));
 								
 								displayMovementArea(p2);
-								textArea.append("Player 1 stays,\n PLAYER 2 TURN\n \n");
+								textArea.append("Player 1 stays,\n PLAYER 2 TURN\n\n");
 								check();
 							}
 							else {
-								//button[i][j].setText("Player 1");
 								button[i][j].setIcon(new ImageIcon(MainFrame.class.getResource(player1icon)));
 								
 								p1last = p1;
@@ -276,14 +270,13 @@ class MainFrame extends JFrame implements ActionListener {
 								p1 = new Location(i, j);
 								player1.setCurrent(p1);
 								
-								//button[p1last.getX()][p1last.getY()].setText("");
 								button[p1last.getX()][p1last.getY()].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
 								
 								player1.setStamina(player1.getStamina() - 5);
 								p1TextStamina.setText(Integer.toString(player1.getStamina()));
 								
 								displayMovementArea(p2);
-								textArea.append("Player 1 moved,\n PLAYER 2 TURN\n \n");
+								textArea.append("Player 1 moved,\n PLAYER 2 TURN\n\n");
 								check();
 							}
 						}
@@ -295,7 +288,7 @@ class MainFrame extends JFrame implements ActionListener {
 								p2TextStamina.setText(Integer.toString(player2.getStamina()));
 								
 								displayMovementArea(p1);
-								textArea.append("Player 2 attacks for 30HP, \nPLAYER 1 TURN\n \n");
+								textArea.append("Player 2 attacks for 30HP, \nPLAYER 1 TURN\n\n");
 								check();
 							}
 							else if ((i == p2.getX()) && (j == p2.getY())) {
@@ -303,11 +296,10 @@ class MainFrame extends JFrame implements ActionListener {
 								p2TextStamina.setText(Integer.toString(player2.getStamina()));
 								
 								displayMovementArea(p1);
-								textArea.append("Player 2 stays,\nPLAYER 1 TURN\n \n");
+								textArea.append("Player 2 stays,\nPLAYER 1 TURN\n\n");
 								check();
 							}
 							else {
-								//button[i][j].setText("Player 2");	
 								button[i][j].setIcon(new ImageIcon(MainFrame.class.getResource(player2icon)));
 								button[i][j].setEnabled(false);
 								
@@ -317,14 +309,13 @@ class MainFrame extends JFrame implements ActionListener {
 								p2 = new Location(i, j);
 								player2.setCurrent(p2);
 								
-								//button[p2last.getX()][p2last.getY()].setText("");
 								button[p2last.getX()][p2last.getY()].setIcon(new ImageIcon(MainFrame.class.getResource(tile1icon)));
 								
 								player2.setStamina(player2.getStamina() - 5);
 								p2TextStamina.setText(Integer.toString(player2.getStamina()));
 								
 								displayMovementArea(p1);
-								textArea.append("Player 2 moved,\n PLAYER 1 TURN\n \n");
+								textArea.append("Player 2 moved,\n PLAYER 1 TURN\n\n");
 								check();
 							}
 						}
@@ -342,7 +333,6 @@ class MainFrame extends JFrame implements ActionListener {
 		int y = l.getY();
 		
 		if ((sign % 2 != 0) && (player1.getStamina() == 0)) {
-			//textArea.append("Player 1 has no stamina left,\n can only stay\n \n");
 			for (int i = 0; i < xRow; i++) {
 				for (int j = 0; j < yRow; j++) {
 					if ((i == x) && (j == y)) {
@@ -356,7 +346,6 @@ class MainFrame extends JFrame implements ActionListener {
 			
 		}
 		else if ((sign % 2 == 0) && (player2.getStamina() == 0)) {
-			//textArea.append("Player 2 has no stamina left,\n can only stay\n \n");
 			for (int i = 0; i < xRow; i++) {
 				for (int j = 0; j < yRow; j++) {
 					if ((i == x) && (j == y)) {
@@ -374,8 +363,9 @@ class MainFrame extends JFrame implements ActionListener {
 					if (((i == x - 1) && (j == y - 1)) | ((i == x - 1) && (j == y)) | ((i == x - 1) && (j == y + 1)) | ((i == x) && (j == y - 1)) | ((i == x) && (j == y)) | ((i == x) && (j == y + 1)) | ((i == x + 1) && (j == y - 1)) | ((i == x + 1) && (j == y)) | ((i == x + 1) && (j == y + 1))) {
 						button[i][j].setEnabled(true);
 					}
-					else
+					else {
 						button[i][j].setEnabled(false);
+					}
 				}
 			}
 		}
@@ -384,22 +374,22 @@ class MainFrame extends JFrame implements ActionListener {
 	// Checks if anyone won yet
 	@SuppressWarnings("unused")
 	public void check() {
-		if ((sign % 2 != 0) && (player1.getStamina() == 0))
-			textArea.append("Player 1 has no stamina left,\n can only stay\n \n");
-		if ((sign % 2 == 0) && (player2.getStamina() == 0))
-			textArea.append("Player 2 has no stamina left,\n can only stay\n \n");
+		if ((sign % 2 != 0) && (player1.getStamina() == 0)) {
+			textArea.append("Player 1 has no stamina left,\n can only stay\n\n");
+		}
+		if ((sign % 2 == 0) && (player2.getStamina() == 0)) {
+			textArea.append("Player 2 has no stamina left,\n can only stay\n\n");
+		}
 		
 		if (player1.getHealth() <= 0) {
-			//textArea.setText("Game Over, Player 2 won");
-			textArea.append("GAME OVER,\n Player 2 won\n \n");
+			textArea.append("GAME OVER,\nPlayer 2 won\n\n");
 			p1TextHealth.setBackground(Color.RED);
 			gameOver();
 			Popup gameover = new Popup(1);
 		}
 		else {
 			if (player2.getHealth() <= 0) {
-				//textArea.setText("Game Over, Player 2 won");
-				textArea.append("GAME OVER,\n Player 1 won\n \n");
+				textArea.append("GAME OVER,\nPlayer 1 won\n\n");
 				p2TextHealth.setBackground(Color.RED);
 				gameOver();
 				Popup gameover = new Popup(2);
@@ -424,8 +414,6 @@ class MainFrame extends JFrame implements ActionListener {
 			p1TextHealth.setBackground(Color.ORANGE);
 		if (player1.getHealth() > 75)
 			p1TextHealth.setBackground(originalP1TextHealthColor);
-		//if (player1.getHealth()==0)
-		//	p1TextHealth.setBackground(Color.RED);					// Currently set in check method
 		
 		if (player1.getStamina() <= 75)
 			p1TextStamina.setBackground(Color.YELLOW);
@@ -433,8 +421,6 @@ class MainFrame extends JFrame implements ActionListener {
 			p1TextStamina.setBackground(Color.ORANGE);
 		if (player1.getStamina() > 75)
 			p1TextStamina.setBackground(originalP1TextHealthColor);
-		//if (player1.getStamina()==0)
-		//	p1TextStamina.setBackground(Color.RED);					// Currently set in check method
 		
 		if (player2.getHealth() <= 75)
 			p2TextHealth.setBackground(Color.YELLOW);
@@ -442,8 +428,6 @@ class MainFrame extends JFrame implements ActionListener {
 			p2TextHealth.setBackground(Color.ORANGE);
 		if (player2.getHealth() > 75)
 			p2TextHealth.setBackground(originalP1TextHealthColor);
-		//if (player2.getHealth()==0)
-		//	p2TextHealth.setBackground(Color.RED);					// Currently set in check method
 		
 		if (player2.getStamina() <= 75)
 			p2TextStamina.setBackground(Color.YELLOW);
@@ -451,8 +435,6 @@ class MainFrame extends JFrame implements ActionListener {
 			p2TextStamina.setBackground(Color.ORANGE);
 		if (player2.getStamina() > 75)
 			p2TextStamina.setBackground(originalP1TextHealthColor);
-		// if (player2.getStamina()==0)
-		// p2TextStamina.setBackground(Color.RED);                 // Currently set in check method
 		
 	}
 	
