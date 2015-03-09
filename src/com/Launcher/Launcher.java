@@ -53,16 +53,16 @@ public class Launcher {
 		LauncherFrame.getContentPane().setLayout(null);
 		
 		// Declare the button to launch the CountWord game
-		JButton btnCountWordWindow = new JButton("CountWord");
+		JButton btnCountWordWindow = new JButton("Count Word");
 		btnCountWordWindow.setBounds(336, 265, 145, 135);
 		LauncherFrame.getContentPane().add(btnCountWordWindow);
 		
 		// Declare the button to launch the GuessWord game
-		JButton btnGuessWordWindow = new JButton("GuessWord");
+		JButton btnGuessWordWindow = new JButton("Guess Word");
 		btnGuessWordWindow.setBounds(10, 265, 135, 135);
 		LauncherFrame.getContentPane().add(btnGuessWordWindow);
 		
-		JButton btnVitalijGame = new JButton("VitalijGame");
+		JButton btnVitalijGame = new JButton("Strategy Game");
 		btnVitalijGame.setBounds(175, 265, 140, 135);
 		LauncherFrame.getContentPane().add(btnVitalijGame);
 		
