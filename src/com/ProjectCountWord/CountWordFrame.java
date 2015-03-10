@@ -99,7 +99,7 @@ public class CountWordFrame extends JFrame {
 	public CountWordFrame() {
 		// Main frame layout
 		super("Applet");
-		setLookAndFeel();
+		//setLookAndFeel();
 		setBackground(Color.LIGHT_GRAY);
 		//setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		GridLayout frameLayout = new GridLayout(1, 1);
